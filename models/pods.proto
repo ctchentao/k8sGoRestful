@@ -1,0 +1,22 @@
+syntax = "proto2";
+
+package models;
+
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+import "environment_variables.proto";
+
+
+message Pods {
+    required string name = 1;
+
+    repeated Labels labels = 2;
+
+    optional string restartPolicy = 3;
+
+    required string image = 4;
+
+    required int32 containPort = 5;
+
+    optional string protocol = 6;
+
+}

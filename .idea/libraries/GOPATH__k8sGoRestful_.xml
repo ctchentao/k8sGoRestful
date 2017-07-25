@@ -1,0 +1,32 @@
+<component name="libraryTable">
+  <library name="GOPATH &lt;k8sGoRestful&gt;">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/../kubeDemoAPI" />
+      <root url="file://$PROJECT_DIR$/../k8s.io" />
+      <root url="file://$PROJECT_DIR$/../github.com" />
+      <root url="file://$PROJECT_DIR$/../.idea" />
+      <root url="file://$PROJECT_DIR$/../google.golang.org" />
+      <root url="file://$PROJECT_DIR$/../kubeAPITest" />
+      <root url="file://$PROJECT_DIR$/../cloud.google.com" />
+      <root url="file://$PROJECT_DIR$/../gopkg.in" />
+      <root url="file://$PROJECT_DIR$/../golang.org" />
+      <root url="file://$PROJECT_DIR$/../code.cloudfoundry.org" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/../kubeDemoAPI" />
+      <root url="file://$PROJECT_DIR$/../k8s.io" />
+      <root url="file://$PROJECT_DIR$/../github.com" />
+      <root url="file://$PROJECT_DIR$/../.idea" />
+      <root url="file://$PROJECT_DIR$/../google.golang.org" />
+      <root url="file://$PROJECT_DIR$/../kubeAPITest" />
+      <root url="file://$PROJECT_DIR$/../cloud.google.com" />
+      <root url="file://$PROJECT_DIR$/../gopkg.in" />
+      <root url="file://$PROJECT_DIR$/../golang.org" />
+      <root url="file://$PROJECT_DIR$/../code.cloudfoundry.org" />
+    </SOURCES>
+    <excluded>
+      <root url="file://$PROJECT_DIR$" />
+    </excluded>
+  </library>
+</component>

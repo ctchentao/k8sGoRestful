@@ -5,6 +5,8 @@ import (
 	"net/http"
 	"github.com/tedsuo/rata"
 	k8s "k8sGoRestful"
+	"github.com/gogo/protobuf/proto"
+	"strconv"
 )
 
 func New() http.Handler {
@@ -27,4 +29,17 @@ func New() http.Handler {
 
 func route(f http.HandlerFunc) http.Handler {
 	return f
+}
+
+func writeResponse(w http.ResponseWriter, message proto.Message) {
+	responseBytes, err := proto.Marshal(message)
+	if err != nil {
+		panic("Unable to encode Proto: " + err.Error())
+	}
+
+	w.Header().Set("Content-Length", strconv.Itoa(len(responseBytes)))
+	w.Header().Set("Content-Type", "application/x-protobuf")
+	w.WriteHeader(http.StatusOK)
+
+	w.Write(responseBytes)
 }

@@ -51,7 +51,7 @@ func (h *PodsHandler)k8sCreatePods(pods *models.Pods, namespace string) error{
 	pod := new(v1.Pod)
 	pod.TypeMeta = unversioned.TypeMeta{Kind: "Pod", APIVersion: "v1"}
 	labelsMap := make(map[string]string)
-	labels := pods.GetLabels()
+	labels := pods.GetLabel()
 	for i :=0;i<len(labels);i++{
 		labelsMap[*(labels[i].Name)] = *(labels[i].Value)
 	}
@@ -102,6 +102,7 @@ func CreatePods1(req *restful.Request, resp *restful.Response){
 
 func (h *PodsHandler)CreatePods(w http.ResponseWriter, req *http.Request){
 	data, err := ioutil.ReadAll(req.Body)
+	response := &models.PodsResponse{}
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		return
@@ -117,7 +118,7 @@ func (h *PodsHandler)CreatePods(w http.ResponseWriter, req *http.Request){
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
-	w.WriteHeader(http.StatusOK)
+	writeResponse(w, response)
 }
 
 func (h *PodsHandler)GetPods(w http.ResponseWriter, req *http.Request){

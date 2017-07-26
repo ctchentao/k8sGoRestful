@@ -9,7 +9,7 @@ import "environment_variables.proto";
 message Pods {
     required string name = 1;
 
-    repeated Labels labels = 2;
+    repeated Label label = 2;
 
     optional string restartPolicy = 3;
 

@@ -15,6 +15,7 @@ func main(){
 	server := httptest.NewServer(handler)
 
 	client := k8sGoRestful.NewClient(server.URL)
+	fmt.Println(server.URL)
 	pods := &models.Pods{
 		Name: "testapi",
 		Label: []models.Label{
@@ -30,7 +31,7 @@ func main(){
 	} else {
 		fmt.Println(err)
 	}
-	
+
 
 //	server := &http.Server{Addr: "172.18.191.5:8080", Handler: handler}
 //	log.Fatal(server.ListenAndServe())

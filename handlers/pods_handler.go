@@ -123,9 +123,9 @@ func (h *PodsHandler)CreatePods(w http.ResponseWriter, req *http.Request){
 }
 
 func (h *PodsHandler)GetPods(w http.ResponseWriter, req *http.Request){
-
+	//todo
 }
 
 func (h *PodsHandler)DeletePods(w http.ResponseWriter, req *http.Request){
-
+	//todo
 }

@@ -33,8 +33,8 @@ var _ = math.Inf
 const _ = proto.GoGoProtoPackageIsVersion2 // please upgrade the proto package
 
 type Label struct {
-	Name             *string `protobuf:"bytes,1,req,name=name" json:"name,omitempty"`
-	Value            *string `protobuf:"bytes,2,req,name=value" json:"value,omitempty"`
+	Name             string `protobuf:"bytes,1,req,name=name" json:"name,omitempty"`
+	Value            string `protobuf:"bytes,2,req,name=value" json:"value,omitempty"`
 	XXX_unrecognized []byte  `json:"-"`
 }
 
@@ -44,15 +44,15 @@ func (*Label) ProtoMessage()               {}
 func (*Label) Descriptor() ([]byte, []int) { return fileDescriptorEnvironmentVariables, []int{0} }
 
 func (m *Label) GetName() string {
-	if m != nil && m.Name != nil {
-		return *m.Name
+	if m != nil {
+		return m.Name
 	}
 	return ""
 }
 
 func (m *Label) GetValue() string {
-	if m != nil && m.Value != nil {
-		return *m.Value
+	if m != nil  {
+		return m.Value
 	}
 	return ""
 }

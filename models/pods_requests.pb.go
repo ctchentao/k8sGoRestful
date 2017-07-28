@@ -14,7 +14,7 @@ var _ = fmt.Errorf
 var _ = math.Inf
 
 type PodsResponse struct {
-	ShouldStart      *bool  `protobuf:"varint,1,opt,name=should_start,json=shouldStart" json:"should_start,omitempty"`
+	ShouldStart      bool  `protobuf:"varint,1,opt,name=should_start,json=shouldStart" json:"should_start,omitempty"`
 	XXX_unrecognized []byte `json:"-"`
 }
 
@@ -24,8 +24,8 @@ func (*PodsResponse) ProtoMessage()               {}
 func (*PodsResponse) Descriptor() ([]byte, []int) { return fileDescriptorPodsRequests, []int{0} }
 
 func (m *PodsResponse) GetShouldStart() bool {
-	if m != nil && m.ShouldStart != nil {
-		return *m.ShouldStart
+	if m != nil {
+		return m.ShouldStart
 	}
 	return false
 }

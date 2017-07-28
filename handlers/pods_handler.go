@@ -14,8 +14,9 @@ import(
 //	"io"
 	"k8sGoRestful/models"
 	"io/ioutil"
-	"encoding/json"
+//	"encoding/json"
 	"github.com/tedsuo/rata"
+	"github.com/gogo/protobuf/proto"
 )
 
 var (
@@ -53,7 +54,7 @@ func (h *PodsHandler)k8sCreatePods(pods *models.Pods, namespace string) error{
 	labelsMap := make(map[string]string)
 	labels := pods.GetLabel()
 	for i :=0;i<len(labels);i++{
-		labelsMap[*(labels[i].Name)] = *(labels[i].Value)
+		labelsMap[labels[i].Name] = (labels[i].Value)
 	}
 	pod.ObjectMeta = v1.ObjectMeta{Name: pods.GetName(), Namespace: namespace, Labels: labelsMap}
 	pod.Spec = v1.PodSpec{
@@ -107,8 +108,8 @@ func (h *PodsHandler)CreatePods(w http.ResponseWriter, req *http.Request){
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
-	pods := new(models.Pods)
-	if err := json.Unmarshal(data,&pods); err !=nil {
+	pods := &models.Pods{}
+	if err := proto.Unmarshal(data,pods); err !=nil {
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}

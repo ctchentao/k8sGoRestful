@@ -14,12 +14,12 @@ var _ = fmt.Errorf
 var _ = math.Inf
 
 type Pods struct {
-	Name             *string  `protobuf:"bytes,1,req,name=name" json:"name,omitempty"`
-	Label            []*Label `protobuf:"bytes,2,rep,name=label" json:"label,omitempty"`
-	RestartPolicy    *string  `protobuf:"bytes,3,opt,name=restartPolicy" json:"restartPolicy,omitempty"`
-	Image            *string  `protobuf:"bytes,4,req,name=image" json:"image,omitempty"`
-	ContainPort      *int32   `protobuf:"varint,5,req,name=containPort" json:"containPort,omitempty"`
-	Protocol         *string  `protobuf:"bytes,6,opt,name=protocol" json:"protocol,omitempty"`
+	Name             string  `protobuf:"bytes,1,req,name=name" json:"name,omitempty"`
+	Label            []Label `protobuf:"bytes,2,rep,name=label" json:"label,omitempty"`
+	RestartPolicy    string  `protobuf:"bytes,3,opt,name=restartPolicy" json:"restartPolicy,omitempty"`
+	Image            string  `protobuf:"bytes,4,req,name=image" json:"image,omitempty"`
+	ContainPort      int32   `protobuf:"varint,5,req,name=containPort" json:"containPort,omitempty"`
+	Protocol         string  `protobuf:"bytes,6,opt,name=protocol" json:"protocol,omitempty"`
 	XXX_unrecognized []byte   `json:"-"`
 }
 
@@ -29,13 +29,13 @@ func (*Pods) ProtoMessage()               {}
 func (*Pods) Descriptor() ([]byte, []int) { return fileDescriptorPods, []int{0} }
 
 func (m *Pods) GetName() string {
-	if m != nil && m.Name != nil {
-		return *m.Name
+	if m != nil {
+		return m.Name
 	}
 	return ""
 }
 
-func (m *Pods) GetLabel() []*Label {
+func (m *Pods) GetLabel() []Label {
 	if m != nil {
 		return m.Label
 	}
@@ -43,29 +43,29 @@ func (m *Pods) GetLabel() []*Label {
 }
 
 func (m *Pods) GetRestartPolicy() string {
-	if m != nil && m.RestartPolicy != nil {
-		return *m.RestartPolicy
+	if m != nil {
+		return m.RestartPolicy
 	}
 	return ""
 }
 
 func (m *Pods) GetImage() string {
-	if m != nil && m.Image != nil {
-		return *m.Image
+	if m != nil {
+		return m.Image
 	}
 	return ""
 }
 
 func (m *Pods) GetContainPort() int32 {
-	if m != nil && m.ContainPort != nil {
-		return *m.ContainPort
+	if m != nil {
+		return m.ContainPort
 	}
 	return 0
 }
 
 func (m *Pods) GetProtocol() string {
-	if m != nil && m.Protocol != nil {
-		return *m.Protocol
+	if m != nil {
+		return m.Protocol
 	}
 	return ""
 }

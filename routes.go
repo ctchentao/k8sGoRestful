@@ -11,6 +11,9 @@ const (
 	CreatePods = "CreatePods"
 	GetPods    = "GetPods"
 	DeletePods = "DeletesPods"
+
+	//jobs
+	CreateJobs = "CreateJobs"
 )
 
 var Routes = rata.Routes{
@@ -18,6 +21,9 @@ var Routes = rata.Routes{
 	{Path: "/api/v1/namespaces/:namespace/pods/:name", Method: "GET", Name: GetPods},
 	{Path: "/api/v1/namespaces/:namespace/pods", Method: "POST", Name: CreatePods},
 	{Path: "/api/v1/namespaces/:namespace/pods/:name", Method: "DELETE", Name: DeletePods},
+
+	//Jobs
+	{Path: "/apis/batch/v1/namespaces/:namespace/jobs", Method: "POST", Name: CreateJobs},
 }
 
 /*

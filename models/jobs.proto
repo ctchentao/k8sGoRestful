@@ -1,0 +1,31 @@
+syntax = "proto2";
+
+package models;
+
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+import "environment_variables.proto";
+import "volumes.proto";
+
+message Jobs {
+    optional string name = 1 [(gogoproto.nullable) = false];
+
+    optional int32 completions = 2 [(gogoproto.nullable) = false];
+
+    optional int32 parallelism = 3 [(gogoproto.nullable) = false];
+
+    repeated Label label = 4 [(gogoproto.nullable) = false];
+
+    optional string restartPolicy = 5 [(gogoproto.nullable) = false];
+
+    optional Volumes volumes = 6;
+
+    optional int32 disk_mb = 7[(gogoproto.nullable) = false];
+
+    optional int32 memory_mb = 8 [(gogoproto.nullable) = false];
+
+    optional int32 cpu_weight = 9 [(gogoproto.nullable) = false];
+
+    optional bool privileged = 10 [(gogoproto.nullable) = false];
+
+    optional string image = 11 [(gogoproto.nullable) = false];
+}

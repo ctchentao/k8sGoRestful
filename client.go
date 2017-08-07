@@ -18,11 +18,11 @@ const (
 
 type Client interface {
 	CreatePods(namespace string, instance *models.Pods) (bool, error)
-
+	CreateJobs(namespace string, instance *models.Jobs) (bool, error)
 }
 
 type client struct {
-	reqGen    *rata.RequestGenerator
+	reqGen     *rata.RequestGenerator
 }
 
 func newClient(url string) *client {
@@ -39,6 +39,16 @@ func (c *client) CreatePods(namespace string, instance *models.Pods) (bool, erro
 	request := instance
 	response := models.PodsResponse{}
 	err := c.doRequest(CreatePods, rata.Params{"namespace": namespace},nil, request, &response)
+	if err != nil {
+		return false, err
+	}
+	return response.ShouldStart, nil
+}
+
+func (c *client) CreateJobs(namespace string, instance *models.Jobs) (bool, error) {
+	request := instance
+	response := models.PodsResponse{}
+	err := c.doRequest(CreateJobs, rata.Params{"namespace": namespace},nil, request, &response)
 	if err != nil {
 		return false, err
 	}

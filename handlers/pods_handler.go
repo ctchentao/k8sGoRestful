@@ -1,27 +1,14 @@
 package handlers
 
 import(
-	"flag"
 	"k8s.io/client-go/1.5/pkg/api/v1"
 	"k8s.io/client-go/1.5/pkg/api/unversioned"
-	"k8s.io/client-go/1.5/kubernetes"
-	"k8s.io/client-go/1.5/tools/clientcmd"
 	"log"
-//	"fmt"
-//	"github.com/emicklei/go-restful"
-//	"github.com/gorilla/schema"
 	"net/http"
-//	"io"
 	"k8sGoRestful/models"
 	"io/ioutil"
-//	"encoding/json"
 	"github.com/tedsuo/rata"
 	"github.com/gogo/protobuf/proto"
-)
-
-var (
-//	decoder *schema.Decoder
-	kubeconfig = flag.String("kubeconfig", "/home/chentao/config.yaml", "absolute path to the kubeconfig file")
 )
 
 type PodsHandler struct {
@@ -32,30 +19,11 @@ func NewPodsHandler() *PodsHandler {
 }
 
 func (h *PodsHandler)k8sCreatePods(pods *models.Pods, namespace string) error{
-	var e error
-//	fmt.Println(namespace)
-	flag.Parse()
-	if *kubeconfig == "" {
-		panic("-kubeconfig not specified")
-	}
-	config, err := clientcmd.BuildConfigFromFlags("", *kubeconfig)
-	if err != nil {
-		e = err
-		panic(err)
-	}
-	clientset, err := kubernetes.NewForConfig(config)
-	if err != nil {
-		e = err
-		panic(err)
-	}
-
+	clientset := newClientset()
 	pod := new(v1.Pod)
 	pod.TypeMeta = unversioned.TypeMeta{Kind: "Pod", APIVersion: "v1"}
-	labelsMap := make(map[string]string)
-	labels := pods.GetLabel()
-	for i :=0;i<len(labels);i++{
-		labelsMap[labels[i].Name] = (labels[i].Value)
-	}
+	labelsMap := convertMap(pods.GetLabel())
+
 	pod.ObjectMeta = v1.ObjectMeta{Name: pods.GetName(), Namespace: namespace, Labels: labelsMap}
 	pod.Spec = v1.PodSpec{
 		RestartPolicy: v1.RestartPolicyAlways,
@@ -72,9 +40,11 @@ func (h *PodsHandler)k8sCreatePods(pods *models.Pods, namespace string) error{
 			},
 		},
 	}
-	podname, err := clientset.Core().Pods(namespace).Create(pod)
-	log.Printf("pod %s have cretae\n", podname.ObjectMeta.Name)
-	return e
+	podInstance, err := clientset.Core().Pods(namespace).Create(pod)
+	if err == nil {
+		log.Printf("pod %s have create\n", podInstance.ObjectMeta.Name)
+	}
+	return err
 }
 /*
 func CreatePods1(req *restful.Request, resp *restful.Response){

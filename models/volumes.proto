@@ -1,0 +1,11 @@
+syntax = "proto2";
+
+package models;
+
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+
+message Volumes {
+    optional string dirver = 1 [(gogoproto.nullable) = false];
+    optional string mount_path =2 [(gogoproto.nullable) = false];
+    optional string name = 3 [(gogoproto.nullable) = false];
+}

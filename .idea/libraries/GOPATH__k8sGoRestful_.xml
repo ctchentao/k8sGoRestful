@@ -2,6 +2,7 @@
   <library name="GOPATH &lt;k8sGoRestful&gt;">
     <CLASSES>
       <root url="file://$PROJECT_DIR$/../kubeDemoAPI" />
+      <root url="file://$PROJECT_DIR$/../testbuild" />
       <root url="file://$PROJECT_DIR$/../k8s.io" />
       <root url="file://$PROJECT_DIR$/../github.com" />
       <root url="file://$PROJECT_DIR$/../.idea" />
@@ -15,6 +16,7 @@
     <JAVADOC />
     <SOURCES>
       <root url="file://$PROJECT_DIR$/../kubeDemoAPI" />
+      <root url="file://$PROJECT_DIR$/../testbuild" />
       <root url="file://$PROJECT_DIR$/../k8s.io" />
       <root url="file://$PROJECT_DIR$/../github.com" />
       <root url="file://$PROJECT_DIR$/../.idea" />

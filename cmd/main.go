@@ -3,16 +3,19 @@ package main
 import(
 	//	"fmt"
 //	"github.com/emicklei/go-restful"
-	"k8sGoRestful"
+//	"k8sGoRestful"
 	"k8sGoRestful/handlers"
-	"k8sGoRestful/models"
-	"fmt"
-	"net/http/httptest"
+
+//	"k8sGoRestful/models"
+//	"fmt"
+//	"net/http/httptest"
+	"net/http"
+	"log"
 )
 
 func main(){
 	handler := handlers.New()
-	server := httptest.NewServer(handler)
+/*	server := httptest.NewServer(handler)
 
 	client := k8sGoRestful.NewClient(server.URL)
 	fmt.Println(server.URL)
@@ -31,10 +34,10 @@ func main(){
 	} else {
 		fmt.Println(err)
 	}
+*/
 
-
-//	server := &http.Server{Addr: "172.18.191.5:8080", Handler: handler}
-//	log.Fatal(server.ListenAndServe())
+	server := &http.Server{Addr: "172.18.191.5:8080", Handler: handler}
+	log.Fatal(server.ListenAndServe())
 
 	//go-restful
 	/*

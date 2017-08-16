@@ -6,9 +6,11 @@ import(
 	"log"
 	"net/http"
 	"k8sGoRestful/models"
-	"k8s.io/client-go/1.5/pkg/apis/batch"
+	batchv1 "k8s.io/client-go/1.5/pkg/apis/batch/v1"
 	"io/ioutil"
 	"github.com/gogo/protobuf/proto"
+//	"k8s.io/client-go/1.5/pkg/api"
+//	"k8s.io/client-go/1.5/pkg/apis/batch"
 )
 
 type JobsHandler struct {
@@ -20,10 +22,10 @@ func NewJobsHandler() *JobsHandler {
 }
 
 func (h *JobsHandler) k8sCreateJobs(jobs *models.Jobs, namespace string) error{
-	labelsMap := jobs.GetLabel()
-	job := &batch.Job{
+	labelsMap := convertMap(jobs.GetLabel())
+	job := &batchv1.Job{
 		ObjectMeta: v1.ObjectMeta{Name: jobs.GetName(), Namespace: namespace, Labels: labelsMap},
-		Spec: batch.JobSpec{
+		Spec: batchv1.JobSpec{
 			Completions: jobs.GetCompletions(),
 			Parallelism: jobs.GetParallelism(),
 
@@ -39,20 +41,27 @@ func (h *JobsHandler) k8sCreateJobs(jobs *models.Jobs, namespace string) error{
 							Image: jobs.GetImage(),
 							Resources: v1.ResourceRequirements{
 								Requests: v1.ResourceList{
-									{"cpu": ""},
-									{"memory": ""},
+								//	{"cpu": ""},
+								//	{"memory": ""},
 								},
 							},
-							VolumeMounts: v1.VolumeMount{
-								MountPath: jobs.GetVolumes().GetMountPath(),
-								Name: jobs.GetVolumes().GetName(),
+							VolumeMounts: []v1.VolumeMount{
+								{
+									MountPath: jobs.GetVolumes().GetMountPath(),
+									Name: jobs.GetVolumes().GetName(),
+								},
 							},
 						},
 					},
-					RestartPolicy: jobs.GetRestartPolicy(),
-					Volumes: v1.Volume{
-						Name: jobs.GetVolumes().GetName(),
-						VolumeSource: v1.EmptyDirVolumeSource{},
+					RestartPolicy: v1.RestartPolicyOnFailure,
+					Volumes: []v1.Volume{
+						{
+							Name: jobs.GetVolumes().GetName(),
+							VolumeSource: v1.VolumeSource{
+								EmptyDir: &v1.EmptyDirVolumeSource{},
+							},
+						},
+
 					},
 				},
 			},

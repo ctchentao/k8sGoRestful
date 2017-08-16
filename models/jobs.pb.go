@@ -30,8 +30,8 @@ const _ = proto.GoGoProtoPackageIsVersion2 // please upgrade the proto package
 
 type Jobs struct {
 	Name             string           `protobuf:"bytes,1,opt,name=name" json:"name"`
-	Completions      int32            `protobuf:"varint,2,opt,name=completions" json:"completions"`
-	Parallelism      int32            `protobuf:"varint,3,opt,name=parallelism" json:"parallelism"`
+	Completions      *int32            `protobuf:"varint,2,opt,name=completions" json:"completions"`
+	Parallelism      *int32            `protobuf:"varint,3,opt,name=parallelism" json:"parallelism"`
 	Label            []Label  	  `protobuf:"bytes,4,rep,name=label" json:"label"`
 	RestartPolicy    string           `protobuf:"bytes,5,opt,name=restartPolicy" json:"restartPolicy"`
 	Volumes          *Volumes 	  `protobuf:"bytes,6,opt,name=volumes" json:"volumes,omitempty"`
@@ -55,18 +55,18 @@ func (m *Jobs) GetName() string {
 	return ""
 }
 
-func (m *Jobs) GetCompletions() int32 {
+func (m *Jobs) GetCompletions() *int32 {
 	if m != nil {
 		return m.Completions
 	}
-	return 0
+	return nil
 }
 
-func (m *Jobs) GetParallelism() int32 {
+func (m *Jobs) GetParallelism() *int32 {
 	if m != nil {
 		return m.Parallelism
 	}
-	return 0
+	return nil
 }
 
 func (m *Jobs) GetLabel() []Label {
